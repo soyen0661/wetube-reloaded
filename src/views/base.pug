@@ -1,0 +1,22 @@
+include mixins/message
+
+doctype html
+html(lang="ko")
+    head
+        title #{pageTitle} | Wetube
+        //- link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+        link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css")
+        link(rel="stylesheet",href="/static/css/styles.css")
+    body 
+        include partials/header
+        if messages.error  
+            +message("error",messages.error)
+        if messages.info  
+            +message("info",messages.info)
+        if messages.success 
+            +message("success",messages.success)
+        main
+            block content
+        include partials/footer
+    script(src="/static/js/main.js")
+    block scripts
