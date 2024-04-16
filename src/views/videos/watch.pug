@@ -1,0 +1,41 @@
+extends ../base
+
+block content
+    div#videoContainer(data-id=video.id)
+        video(src="/" + video.videoUrl)
+        div#videoControls.videoControls
+            div.videoControls__play
+                span#play.videoControls__playBtn 
+                    i.fas.fa-play
+                div.videoControls__time
+                    span#currenTime 00:00
+                    span  / 
+                    span#totalTime
+            input(type="range",step="1",value=0,min="0")#timeline.videoControls__timeline
+            div.videoControls__volume
+                input(type="range",step="0.1",value=0.5,min="0",max="1")#volume
+                span#mute 
+                    i.fas.fa-volume-up
+            div 
+                span#fullScreen
+                    i.fas.fa-expand
+    div.video-mixin
+        div.video-mixin__data
+            span.video-mixin__title=video.title
+            span.video-mixin__createdAt Created at: #{createdAt}
+            div.video-mixin__meta
+                a(href=`/users/${video.owner._id}`)
+                    span #{video.owner.name} • 
+                span #{video.meta.views} 회
+
+    if String(loggedInUser._id) === String(video.owner._id)
+        a(href=`${video.id}/edit`) Edit Video &rarr;
+        br
+        a(href=`${video.id}/delete`) Delete Video &rarr;
+//-
+    div
+        p=video.description
+        small=video.createdAt
+
+block scripts 
+    script(src="/static/js/videoPlayer.js")

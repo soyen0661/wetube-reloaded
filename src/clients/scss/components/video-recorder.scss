@@ -1,0 +1,56 @@
+#recording-container {
+  width: 100%;
+  position: relative;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+
+  video {
+    max-width: 1024px;
+    max-height: 576px;
+  }
+
+  #icon-container {
+    width: 100%;
+    max-width: 1024px;
+    max-height: 576px;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    bottom: 10px;
+
+    #previewIcon {
+      padding-left: 10px;
+      i {
+        color: #1dc337;
+        &.blink {
+          animation: blink 1s infinite alternate;
+          @keyframes blink {
+            0% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 0;
+            }
+          }
+        }
+      }
+    }
+    #recordBtn {
+      padding-right: 10px;
+      i {
+        cursor: pointer;
+        transition: color 0.3s ease;
+        &:hover {
+          color: #b3251e;
+        }
+      }
+    }
+    .record__trading {
+      color: white;
+      background-color: #fbfbfb00;
+      padding-right: 10px;
+    }
+  }
+}

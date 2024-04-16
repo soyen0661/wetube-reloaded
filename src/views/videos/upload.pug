@@ -1,0 +1,24 @@
+extends ../base
+
+block content
+    div#recording-container
+        video#preview
+        div#icon-container
+            span#previewIcon
+                i.fa-solid.fa-video
+            span#recordBtn
+                i.fa-solid.fa-record-vinyl
+    if errorMessage 
+        span.error-message=errorMessage
+    form(method="POST",enctype="multipart/form-data").edit-profile__form
+        label(for="video") Video File
+        input(name="video",type="file",id="video",accept="video/*",required)
+        label(for="thumb") Thumbnail File
+        input(name="thumb",type="file",id="thumb",accept="image/*",required)
+        input(name="title", placeholder="Title",type="text", required, maxlength=60)
+        input(name="description", placeholder="Description", type="text", required, minlength=10)
+        input(name="hashtags", placeholder="Hashtags, separated by comma.", type="text", required)
+        input(value="Save",type="submit")
+
+block scripts 
+    script(src="/static/js/recorder.js")
