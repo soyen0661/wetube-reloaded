@@ -104,7 +104,7 @@ const handleRecord = () => {
 
 const getStream = async () => {
   stream = await navigator.mediaDevices.getUserMedia({
-    audio: false,
+    audio: true,
     video: {
       width: 1024,
       height: 576,
