@@ -97,6 +97,9 @@ const handleRecord = () => {
     preview.play();
   };
   recorder.start();
+  setTimeout(() => {
+    handleStop();
+  }, 5000);
 };
 
 const getStream = async () => {
