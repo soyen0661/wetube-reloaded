@@ -229,6 +229,7 @@ export const see = async (req, res) => {
     path: "videos",
     populate: { path: "owner" },
   });
+  console.log(user);
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found." });
   }
