@@ -1,6 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export const getJoin = (req, res) =>
   res.render("join", { pageTitle: "Create Account" });
