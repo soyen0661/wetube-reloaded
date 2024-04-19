@@ -1,0 +1,7 @@
+mixin comment(info)
+    div.comment-mixin
+        i.fas.fa-comment
+        span.comment-text   #{info.text}    
+        if String(loggedInUser._id) === String(info.owner._id)
+            span.comment-delete
+                i.fas.fa-trash(data-id=info.id)

@@ -1,4 +1,5 @@
 extends ../base
+include ../mixins/comment
 
 block content
     div#videoContainer(data-id=video.id)
@@ -22,7 +23,7 @@ block content
     div.video-mixin
         div.video-mixin__data
             span.video-mixin__title=video.title
-            span.video-mixin__createdAt Created at: #{createdAt}
+            span.video-mixin__createdAt Created at: #{createdVideoAt}
             div.video-mixin__meta
                 a(href=`/users/${video.owner._id}`)
                     span #{video.owner.name} • 
@@ -31,11 +32,27 @@ block content
     if String(loggedInUser._id) === String(video.owner._id)
         a(href=`${video.id}/edit`) Edit Video &rarr;
         br
-        a(href=`${video.id}/delete`) Delete Video &rarr;
+        a(href=`videos/${video.id}/delete`) Delete Video &rarr;
+
+    div.video__comments
+        if loggedIn 
+            form.video__comment-form#commentForm
+                textarea(cols="30",rows="10",placeholder="Write a comment...")
+                button Add Comment
+        if video.comments 
+            div
+                ul  
+                    each item in video.comments.reverse()
+                        li.video__comment(data-id=item.id)
+                            +comment(item)
+
 //-
     div
         p=video.description
         small=video.createdAt
+        -//
 
 block scripts 
     script(src="/static/js/videoPlayer.js")
+    if loggedIn
+        script(src="/static/js/commentSection.js")

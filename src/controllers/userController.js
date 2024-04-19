@@ -223,10 +223,6 @@ export const postChangePassword = async (req, res) => {
   return res.redirect("/login");
 };
 
-export const deleteUser = (req, res) =>
-  res.render("users/delete-user", {
-    pageTitle: "Delete | Profile",
-  });
 export const see = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id).populate({

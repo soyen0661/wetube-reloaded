@@ -5,7 +5,6 @@ import {
   postEdit,
   getChangePassword,
   postChangePassword,
-  deleteUser,
   startGithubLogin,
   finishGithubLogin,
   see,
@@ -31,7 +30,6 @@ userRouter
   .all(protectorMiddleware)
   .get(getChangePassword)
   .post(postChangePassword);
-userRouter.get("/delete", protectorMiddleware, deleteUser);
 userRouter.get("/:id", see);
 
 export default userRouter;

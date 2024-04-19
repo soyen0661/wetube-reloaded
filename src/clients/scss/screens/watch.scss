@@ -1,0 +1,40 @@
+.video__comments {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  margin-top: 20px;
+  .video__comment {
+    padding: 10px;
+    border-radius: 9999px;
+    background-color: white;
+    color: black;
+    margin-bottom: 10px;
+    .comment-mixin {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .fa-comment {
+        margin-right: 5px;
+      }
+      .comment-text {
+        text-align: left;
+        flex-grow: 1;
+      }
+      .comment-delete {
+        right: 5px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(0.95);
+        }
+
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+    }
+  }
+}

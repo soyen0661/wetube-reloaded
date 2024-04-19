@@ -1,5 +1,7 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import Comment from "../models/Comment";
+import { now } from "mongoose";
 const VIDEONOTFOUND = "Video not found";
 const formattedCreatedAt = (date) => {
   const formattedDate = `${date.getFullYear()}-${String(
@@ -34,16 +36,22 @@ export const search = async (req, res) => {
 
 export const watch = async (req, res) => {
   const id = req.params.id;
-  const video = await Video.findById(id).populate("owner");
-  const createdAt = formattedCreatedAt(new Date(video.createdAt));
-
+  const video = await Video.findById(id)
+    .populate("owner")
+    .populate({
+      path: "comments",
+      populate: { path: "owner" },
+    });
+  const createdVideoAt = formattedCreatedAt(new Date(video.createdAt));
+  const createdCommentAt = formattedCreatedAt(new Date(video.comments._id));
   if (!video) {
     return res.status(404).render("404", { pageTitle: VIDEONOTFOUND });
   }
   return res.render("videos/watch", {
     pageTitle: `Watching ${video.title}`,
     video,
-    createdAt,
+    createdVideoAt,
+    createdCommentAt,
   });
 };
 export const getEdit = async (req, res) => {
@@ -83,12 +91,7 @@ export const deleteVideo = async (req, res) => {
   await Video.findByIdAndDelete(id);
   return res.redirect("/");
 };
-export const comments = (req, res) =>
-  res.render("videos/comments", { pageTitle: "Comments" });
-export const deleteComment = (req, res) =>
-  res.render("videos/delete-comments", {
-    pageTitle: "Delete | Comments",
-  });
+
 export const getUpload = (req, res) =>
   res.render("videos/upload", { pageTitle: "Upload Video" });
 
@@ -133,4 +136,32 @@ export const registerView = async (req, res) => {
     await video.save();
     return res.sendStatus(200);
   }
+};
+
+export const createComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { text },
+    session: { user },
+  } = req;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  const newComment = await Comment.create({
+    text,
+    owner: user._id,
+    video: id,
+  });
+  video.comments.push(newComment._id);
+  video.save();
+  return res.status(201).json({ newCommentId: newComment._id });
+};
+
+export const deleteComment = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  await Comment.findByIdAndDelete(id);
+  return res.sendStatus(200);
 };

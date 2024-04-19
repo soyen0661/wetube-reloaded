@@ -6,8 +6,6 @@ import {
   getUpload,
   postUpload,
   deleteVideo,
-  comments,
-  deleteComment,
 } from "../controllers/videoController";
 import { protectorMiddleware, videoUpload } from "../middlewares";
 
@@ -19,7 +17,11 @@ videoRouter
   .all(protectorMiddleware)
   .get(getEdit)
   .post(postEdit);
-videoRouter.get("/:id([0-9a-f]{24})/delete", protectorMiddleware, deleteVideo);
+videoRouter.get(
+  "/videos/:id([0-9a-f]{24})/delete",
+  protectorMiddleware,
+  deleteVideo
+);
 videoRouter
   .route("/upload")
   .all(protectorMiddleware)
@@ -31,7 +33,5 @@ videoRouter
     ]),
     postUpload
   );
-videoRouter.get("/:id([0-9a-f]{24})/comments", comments);
-videoRouter.get("/:id([0-9a-f]{24})/comments/delete", deleteComment);
 
 export default videoRouter;
