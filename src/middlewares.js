@@ -28,13 +28,13 @@ export const publicOnlyMiddleware = (req, res, next) => {
 export const avatarUpload = multer({
   dest: "uploads/avatar",
   limits: {
-    fileSize: 100000,
+    fileSize: 5000000,
   },
 });
 
 export const videoUpload = multer({
   dest: "uploads/video",
   limits: {
-    fileSize: 1000000,
+    fileSize: 50000000,
   },
 });
