@@ -21,7 +21,4 @@ header
                         if !loggedInUser.avatarUrl
                             span 🐣
                         else
-                            if loggedInUser.SocialOnly
-                                img(src=loggedInUser.avatarUrl).header__avatar
-                            else
-                                img(src="/" + loggedInUser.avatarUrl).header__avatar
+                            img(src=loggedInUser.avatarUrl).header__avatar

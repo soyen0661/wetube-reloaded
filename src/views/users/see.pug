@@ -3,10 +3,7 @@ include ../mixins/video
 
 block content
     div.profile_data
-        if loggedInUser.SocialOnly
-            img(src=user.avatarUrl).avatar
-        else
-            img(src="/" + user.avatarUrl).avatar
+        img(src=user.avatarUrl).avatar
         span.channel-name #{user.name}의 채널
     div.video-list Video List
     div.video-grid

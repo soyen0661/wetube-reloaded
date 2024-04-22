@@ -29,8 +29,6 @@ const addComment = (text, id) => {
   mixin.appendChild(span2);
   newComment.appendChild(mixin);
   videoComments.prepend(newComment);
-  console.log(mixin);
-  console.log(newComment);
 };
 
 const handleSubmit = async (event) => {
