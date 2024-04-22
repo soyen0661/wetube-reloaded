@@ -3,7 +3,10 @@ include ../mixins/comment
 
 block content
     div#videoContainer(data-id=video.id)
-        video(src=video.videoUrl)
+        if isHeroku
+            video(src=video.videoUrl)
+        else   
+            video(src="/"+video.videoUrl)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn 
